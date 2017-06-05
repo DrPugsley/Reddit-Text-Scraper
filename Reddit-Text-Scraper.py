@@ -15,10 +15,10 @@ if numberofposts is not None:
 	numberofposts = int(numberofposts)
 
 # Setting Variables
-client_id = "vnnDcLEJbrO_Qw"
-client_secret = "amkevPDeA9XcoJOHBcPV3QXsy40"
-username = "7895278412845613"
-password = "peoples1"
+client_id = ""
+client_secret = ""
+username = ""
+password = ""
 subname = args.subreddit
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, password=password, user_agent='Text Post Archiver', username=username)
 postnumber = 0
