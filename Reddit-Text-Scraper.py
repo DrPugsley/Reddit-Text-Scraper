@@ -7,8 +7,10 @@ parser.add_argument("-s", "--subreddit", help="Choose a subreddit to download", 
 parser.add_argument("-st", "--sort", help="Choose whether to download hot, new, or top. If unused, will get new", action="store")
 parser.add_argument("-p", "--posts", help="Choose how many posts to download, default is unlimited", action="store")
 parser.add_argument("-nc", "--nocomments", help="Do not download comments", action="store_false")
+parser.add_argument("-ncs", "--nocss", help="Do not add css", action="store_false")
 args = parser.parse_args()
 getcomments = args.nocomments
+usecss = args.nocss
 numberofposts = args.posts
 sortby = args.sort
 if numberofposts is not None:
@@ -92,44 +94,46 @@ else:
 finished = """</body> </html>"""
 postslist.write(finished)
 postslist.close()
-cssfile = open(os.path.join(subname, 'style.css'), "a")
-csscode = """.md{
+
+if usecss:
+	cssfile = open(os.path.join(subname, 'style.css'), "a")
+	csscode = """.md{
+		color: #fff;
+		background-color: #333;
+		padding-left: 10px;
+		padding-right: 10px;
+		min-height: 10em;
+		display: table-cell;
+		vertical-align: middle;
+		box-shadow: 5px 5px 10px #000;
+	}
+	.postinfo{
+		color: #fff;
+		background-color: #333;
+		padding-left: 10px;
+		padding-right: 10px;
+		min-height: 10em;
+		display: table-cell;
+		vertical-align: middle;
+		box-shadow: 5px 5px 10px #000;
+		padding-bottom: 10px;
+		padding-top: 5px;
+	}
+	body{
+	background-color: #212121;
 	color: #fff;
-	background-color: #333;
-	padding-left: 10px;
-	padding-right: 10px;
-	min-height: 10em;
-	display: table-cell;
-	vertical-align: middle;
-	box-shadow: 5px 5px 10px #000;
-}
-.postinfo{
-	color: #fff;
-	background-color: #333;
-	padding-left: 10px;
-	padding-right: 10px;
-	min-height: 10em;
-	display: table-cell;
-	vertical-align: middle;
-	box-shadow: 5px 5px 10px #000;
-	padding-bottom: 10px;
-	padding-top: 5px;
-}
-body{
-background-color: #212121;
-color: #fff;
-}
-A:link {
- color: #add8e6;
- font-weight: bold;
-}
-A:visited {
- color: #adbce6;
- font-weight: bold;
-}
-A:hover {
- color: white;
-}
-"""
-cssfile.write(csscode)
-cssfile.close()
+	}
+	A:link {
+	 color: #add8e6;
+	 font-weight: bold;
+	}
+	A:visited {
+	 color: #adbce6;
+	 font-weight: bold;
+	}
+	A:hover {
+	 color: white;
+	}
+	"""
+	cssfile.write(csscode)
+	cssfile.close()
