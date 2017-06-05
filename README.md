@@ -12,7 +12,7 @@ Command Line Arguments:
 
   -h, --help: show the help message and exit
   
-  -s SUBREDDIT, --subreddit SUBREDDIT: Choose a subreddit to download
+  -s SUBREDDIT, --subreddit SUBREDDIT: Choose a subreddit to download (required!)
                           
   -st SORT, --sort SORT: Choose whether to download hot, new, or top. If unused, will get new
                         
