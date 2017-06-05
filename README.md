@@ -20,4 +20,6 @@ Command Line Arguments:
                         
   -nc, --nocomments: Do not download comments
   
+  -ncs, --nocss: Do not add css
+  
 Note that using only the '-s' argument and no others will result in downloading all posts, starting with new ones, including comments
