@@ -55,12 +55,12 @@ def dothestuff():
 		post = """<html>
 <link rel=StyleSheet href="style.css" type="text/css">
 <head></head>
-		<body> \n<p>"""+submission.title.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p> <p>"""+submission.selftext_html.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p><br><center>Comments</center><br><br>"""
+		<body> \n<p>"""+submission.title.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p> <div class="mainpost"> <p>"""+submission.selftext_html.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p> </div> <br><center>Comments</center><br><br>"""
 	else:
 		post = """<html>
 <link rel=StyleSheet href="style.css" type="text/css">
 <head></head>
-<body> \n<p>"""+submission.title+"""</p> <p>"""+submission.selftext.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p><br><center>Comments</center><br><br>"""
+<body> \n<p>"""+submission.title.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p> <div class="mainpost"> <p>"""+submission.selftext.replace("’","'").replace('”','"').replace("—","--").replace('“','"').replace("‘","'").replace("…","...").replace("–","-")+"""</p> </div> <br><center>Comments</center><br><br>"""
 	# Writing current post's title and content to its html file
 	savepost.write(post)
 	# Checking whether "-nc" argument was used, downloads comments if not
@@ -71,7 +71,7 @@ def dothestuff():
 		submission.comments.replace_more(limit=0)
 		# Gets comments for the current submission
 		for comment in submission.comments:
-			comment = """<p><b>"""+'['+str(comment.score)+' Points] '+str(comment.author)+': '+"""</b>"""+comment.body_html+"""</p> <br>"""
+			comment = """<p><b>"""+'['+str(comment.score)+' Points] '+str(comment.author)+': '+"""</b><div class="acomment">"""+comment.body_html+"""</div></p> <br>"""
 			savepost.write(comment)
 	
 	# Closes the html tags for the current submission's file
@@ -97,43 +97,61 @@ postslist.close()
 
 if usecss:
 	cssfile = open(os.path.join(subname, 'style.css'), "a")
-	csscode = """.md{
-		color: #fff;
-		background-color: #333;
-		padding-left: 10px;
-		padding-right: 10px;
-		min-height: 10em;
-		display: table-cell;
-		vertical-align: middle;
-		box-shadow: 5px 5px 10px #000;
+	csscode = """.acomment{
+	color: #fff;
+	background-color: #333;
+	padding-left: 10px;
+	width: 1000px;
+	padding-right: 10px;
+	min-height: 10em;
+	display: table-cell;
+	vertical-align: middle;
+	box-shadow: 5px 5px 10px #000;
 	}
-	.postinfo{
-		color: #fff;
-		background-color: #333;
-		padding-left: 10px;
-		padding-right: 10px;
-		min-height: 10em;
-		display: table-cell;
-		vertical-align: middle;
-		box-shadow: 5px 5px 10px #000;
-		padding-bottom: 10px;
-		padding-top: 5px;
-	}
-	body{
+
+.postinfo{
+	color: #fff;
+	margin: auto;
+	background-color: #333;
+	padding-left: 10px;
+	width: 1000px;
+	padding-right: 10px;
+	box-shadow: 5px 5px 10px #000;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+
+.mainpost{
+	color: #fff;
+	background-color: #333;
+	box-shadow: 5px 5px 10px #000;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	display: block;
+	margin: auto;
+	width: 90%;
+}
+
+body{
 	background-color: #212121;
 	color: #fff;
-	}
-	A:link {
-	 color: #add8e6;
-	 font-weight: bold;
-	}
-	A:visited {
-	 color: #adbce6;
-	 font-weight: bold;
-	}
-	A:hover {
-	 color: white;
-	}
+}
+
+A:link {
+	color: #add8e6;
+	font-weight: bold;
+}
+
+A:visited {
+	color: #adbce6;
+	font-weight: bold;
+}
+
+A:hover {
+	color: white;
+}
 	"""
 	cssfile.write(csscode)
 	cssfile.close()
